@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Page1 from './Page1';
 
 type RootStackParamList = {
   MainMenu: undefined;
@@ -42,7 +43,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="MainMenu">
         <Stack.Screen name="MainMenu" component={MainMenu} />
-        <Stack.Screen name="Page1" component={PageTemplate} />
+        <Stack.Screen name="Page1" component={Page1} />
         <Stack.Screen name="Page2" component={PageTemplate} />
         <Stack.Screen name="Page3" component={PageTemplate} />
         <Stack.Screen name="Page4" component={PageTemplate} />
