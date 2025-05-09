@@ -25,9 +25,10 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
+initializeApp(firebaseConfig);
+
 import { RootStackParamList } from './types';
 
-initializeApp(firebaseConfig);
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
