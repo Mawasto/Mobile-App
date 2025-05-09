@@ -2,12 +2,30 @@ import React from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Page1 from './Page1';
+import Register from './views/Register';
+import Login from './views/Login';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+
+
+import { initializeApp } from "firebase/app";
+const firebaseConfig = {
+  apiKey: "AIzaSyAlgFo4umVb2nES1n4KFVVKIK8WPfXtOxY",
+  authDomain: "mobile-app-fc1bf.firebaseapp.com",
+  projectId: "mobile-app-fc1bf",
+  storageBucket: "mobile-app-fc1bf.firebasestorage.app",
+  messagingSenderId: "474739799588",
+  appId: "1:474739799588:web:682a90ebcc145954f74ab1"
+};
+const app = initializeApp(firebaseConfig);
+
+
+initializeApp(firebaseConfig);
+
 
 type RootStackParamList = {
   MainMenu: undefined;
-  Page1: undefined;
-  Page2: undefined;
+  Login: undefined;
+  Register: undefined;
   Page3: undefined;
   Page4: undefined;
   Page5: undefined;
@@ -20,12 +38,8 @@ const MainMenu = ({ navigation }: { navigation: any }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Main Menu</Text>
-      <Button title="Go to Page 1" onPress={() => navigation.navigate('Page1')} />
-      <Button title="Go to Page 2" onPress={() => navigation.navigate('Page2')} />
-      <Button title="Go to Page 3" onPress={() => navigation.navigate('Page3')} />
-      <Button title="Go to Page 4" onPress={() => navigation.navigate('Page4')} />
-      <Button title="Go to Page 5" onPress={() => navigation.navigate('Page5')} />
-      <Button title="Go to Page 6" onPress={() => navigation.navigate('Page6')} />
+      <Button title="Go to Page 1" onPress={() => navigation.navigate('Login')} />
+      <Button title="Go to Page 2" onPress={() => navigation.navigate('Register')} />
     </View>
   );
 };
@@ -43,12 +57,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="MainMenu">
         <Stack.Screen name="MainMenu" component={MainMenu} />
-        <Stack.Screen name="Page1" component={Page1} />
-        <Stack.Screen name="Page2" component={PageTemplate} />
-        <Stack.Screen name="Page3" component={PageTemplate} />
-        <Stack.Screen name="Page4" component={PageTemplate} />
-        <Stack.Screen name="Page5" component={PageTemplate} />
-        <Stack.Screen name="Page6" component={PageTemplate} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
       </Stack.Navigator>
     </NavigationContainer>
   );
