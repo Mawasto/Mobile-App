@@ -4,5 +4,6 @@ export type RootStackParamList = {
     Main: undefined;
     Reactiontest: undefined;
     Memorytest: undefined;
+    Math: undefined;
     Results: undefined;
 };
