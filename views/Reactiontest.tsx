@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
@@ -45,25 +45,74 @@ const ReactionTest = () => {
 
     return (
         <View style={styles.container}>
-            <Button title="Start Reaction Test" onPress={startTest} />
-            <View style={[styles.reactionBox, { backgroundColor: isReady ? 'red' : 'gray' }]}>
-                <Button title="Tap me!" onPress={handleClick} color="#fff" />
+            <TouchableOpacity style={styles.startButton} onPress={startTest}>
+                <Text style={styles.buttonText}>Start Reaction Test</Text>
+            </TouchableOpacity>
+
+            <View style={[styles.reactionBox, { backgroundColor: isReady ? '#e53935' : '#757575' }]}>
+                <TouchableOpacity
+                    style={styles.tapButton}
+                    onPress={handleClick}
+                    activeOpacity={0.7}
+                >
+                    <Text style={styles.tapText}>Tap me!</Text>
+                </TouchableOpacity>
             </View>
-            {reactionTime !== null && <Text>Your reaction time: {reactionTime} ms</Text>}
+
+            {reactionTime !== null && (
+                <Text style={styles.resultText}>Your reaction time: {reactionTime} ms</Text>
+            )}
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: { padding: 20, alignItems: 'center', justifyContent: 'center', flex: 1 },
-    reactionBox: {
-        marginTop: 20,
+    container: {
         padding: 20,
-        borderRadius: 10,
-        width: 200,
         alignItems: 'center',
-        justifyContent: 'center'
-    }
+        justifyContent: 'center',
+        flex: 1,
+        backgroundColor: '#f4f4f4',
+    },
+    startButton: {
+        backgroundColor: '#4CAF50',
+        paddingVertical: 15,
+        paddingHorizontal: 25,
+        borderRadius: 10,
+        marginBottom: 20,
+        elevation: 2,
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    reactionBox: {
+        marginTop: 10,
+        padding: 30,
+        borderRadius: 12,
+        width: 220,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    tapButton: {
+        backgroundColor: '#ffffff',
+        paddingVertical: 15,
+        paddingHorizontal: 30,
+        borderRadius: 8,
+        elevation: 3,
+    },
+    tapText: {
+        fontSize: 16,
+        color: '#333',
+        fontWeight: 'bold',
+    },
+    resultText: {
+        marginTop: 30,
+        fontSize: 18,
+        fontWeight: '600',
+        color: '#444',
+    },
 });
 
 export default ReactionTest;

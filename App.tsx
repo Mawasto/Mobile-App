@@ -29,6 +29,7 @@ const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 initializeApp(firebaseConfig);
 
+
 import { RootStackParamList } from './types';
 
 
