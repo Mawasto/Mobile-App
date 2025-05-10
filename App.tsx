@@ -3,6 +3,10 @@ import {
   NavigationContainer
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+
 
 import Login from './views/Login';
 import Register from './views/Register';
@@ -11,9 +15,6 @@ import Memorytest from './views/Memorytest';
 import Reactiontest from './views/Reactiontest';
 import Results from './views/Results';
 import MathTest from './views/Mathtest';
-
-
-import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAlgFo4umVb2nES1n4KFVVKIK8WPfXtOxY",
@@ -24,7 +25,7 @@ const firebaseConfig = {
   appId: "1:474739799588:web:682a90ebcc145954f74ab1"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 initializeApp(firebaseConfig);
 

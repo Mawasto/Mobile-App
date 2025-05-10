@@ -8,7 +8,6 @@ const Results = () => {
     const [memoryScores, setMemoryScores] = useState<number[]>([]);
     const [mathResults, setMathResults] = useState<{ correct: number; timeMs: number }[]>([]);
 
-
     useEffect(() => {
         const fetchData = async () => {
             const auth = getAuth();
@@ -16,21 +15,18 @@ const Results = () => {
             if (user) {
                 const db = getFirestore();
 
-                // Fetch reaction test results
                 const reactionRef = collection(db, 'reactionResults', user.uid, 'results');
                 const reactionQuery = query(reactionRef, orderBy('timestamp', 'desc'));
                 const reactionSnap = await getDocs(reactionQuery);
                 const times = reactionSnap.docs.map(doc => doc.data().reactionTime);
                 setReactionTimes(times);
 
-                // Fetch memory test results
                 const memoryRef = collection(db, 'memResults');
                 const memoryQuery = query(memoryRef, where('userId', '==', user.uid), orderBy('timestamp', 'desc'));
                 const memorySnap = await getDocs(memoryQuery);
                 const scores = memorySnap.docs.map(doc => doc.data().score);
                 setMemoryScores(scores);
 
-                // Fetch math test results
                 const mathRef = collection(db, 'mathResults', user.uid, 'results');
                 const mathQuery = query(mathRef, orderBy('timestamp', 'desc'));
                 const mathSnap = await getDocs(mathQuery);
@@ -45,42 +41,72 @@ const Results = () => {
         fetchData();
     }, []);
 
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.title}>Reaction Test History:</Text>
-            {reactionTimes.length > 0 ? (
-                reactionTimes.map((time, index) => (
-                    <Text key={`reaction-${index}`}>#{index + 1}: {time} ms</Text>
-                ))
-            ) : (
-                <Text>No reaction test results found.</Text>
-            )}
+    const maxRows = Math.max(reactionTimes.length, memoryScores.length, mathResults.length);
 
-            <Text style={[styles.title, { marginTop: 20 }]}>Memory Test History:</Text>
-            {memoryScores.length > 0 ? (
-                memoryScores.map((score, index) => (
-                    <Text key={`memory-${index}`}>#{index + 1}: {score} digits</Text>
-                ))
-            ) : (
-                <Text>No memory test results found.</Text>
-            )}
-            <Text style={[styles.title, { marginTop: 20 }]}>Math Test History:</Text>
-            {mathResults.length > 0 ? (
-                mathResults.map((res, index) => (
-                    <Text key={`math-${index}`}>
-                        #{index + 1}: {res.correct} correct answers in {Math.round(res.timeMs / 1000)} seconds
-                    </Text>
-                ))
-            ) : (
-                <Text>No math test results found.</Text>
-            )}
+    return (
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <Text style={styles.header}>Your Test History</Text>
+            <View style={styles.table}>
+                <View style={styles.row}>
+                    <Text style={[styles.cell, styles.headerCell]}>Reaction (ms)</Text>
+                    <Text style={[styles.cell, styles.headerCell]}>Memory (digits)</Text>
+                    <Text style={[styles.cell, styles.headerCell]}>Math (correct/time)</Text>
+                </View>
+                {Array.from({ length: maxRows }).map((_, index) => (
+                    <View key={index} style={styles.row}>
+                        <Text style={styles.cell}>
+                            {reactionTimes[index] !== undefined ? `${reactionTimes[index]} ms` : '-'}
+                        </Text>
+                        <Text style={styles.cell}>
+                            {memoryScores[index] !== undefined ? `${memoryScores[index]} digits` : '-'}
+                        </Text>
+                        <Text style={styles.cell}>
+                            {mathResults[index] !== undefined
+                                ? `${mathResults[index].correct} / ${Math.round(mathResults[index].timeMs / 1000)}s`
+                                : '-'}
+                        </Text>
+                    </View>
+                ))}
+            </View>
         </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
-    container: { padding: 20, alignItems: 'center', justifyContent: 'center' },
-    title: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 }
+    scrollContainer: {
+        padding: 20,
+        alignItems: 'center',
+        backgroundColor: '#f4f4f4',
+    },
+    header: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 20,
+    },
+    table: {
+        width: '100%',
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 10,
+        backgroundColor: '#fff',
+        overflow: 'hidden',
+    },
+    row: {
+        flexDirection: 'row',
+        borderBottomWidth: 1,
+        borderColor: '#eee',
+    },
+    cell: {
+        flex: 1,
+        padding: 12,
+        textAlign: 'center',
+        fontSize: 16,
+        color: '#333',
+    },
+    headerCell: {
+        backgroundColor: '#e0e0e0',
+        fontWeight: 'bold',
+    },
 });
 
 export default Results;

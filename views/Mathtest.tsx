@@ -84,8 +84,8 @@ const MathTest = () => {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Test finished!</Text>
-                <Text>Correct answers: {correctCount} / {TOTAL_QUESTIONS}</Text>
-                <Text>Time: {Math.round(timeTaken / 1000)} s</Text>
+                <Text style={styles.title}>Correct answers: {correctCount} / {TOTAL_QUESTIONS}</Text>
+                <Text style={styles.title}>Time: {Math.round(timeTaken / 1000)} s</Text>
             </View>
         );
     }
@@ -108,11 +108,11 @@ const MathTest = () => {
 
 //Styles
 const styles = StyleSheet.create({
-    container: { padding: 20, alignItems: 'center', justifyContent: 'center', flex: 1 },
-    title: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },
-    question: { fontSize: 24, marginBottom: 10 },
+    container: { fontSize: 35, padding: 20, alignItems: 'center', justifyContent: 'center', flex: 1 },
+    title: { fontSize: 40, fontWeight: 'bold', marginBottom: 10 },
+    question: { fontSize: 50, marginBottom: 10 },
     input: {
-        borderWidth: 1, borderColor: '#ccc', padding: 10, width: 100,
+        borderWidth: 1, borderColor: '#ccc', padding: 10, width: 300,
         marginBottom: 10, textAlign: 'center', fontSize: 18
     }
 });
