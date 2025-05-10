@@ -44,12 +44,6 @@ const App = () => {
         <Stack.Screen name="Reactiontest" component={Reactiontest} />
         <Stack.Screen name="Results" component={Results} />
         <Stack.Screen name="Mathtest" component={MathTest} />
-        {/* <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Settings" component={Settings} />
-        <Stack.Screen name="About" component={About} />
-        <Stack.Screen name="Contact" component={Contact} />
-        <Stack.Screen name="Help" component={Help} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

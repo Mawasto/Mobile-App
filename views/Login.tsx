@@ -12,6 +12,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const navigation = useNavigation<NavigationProp>();
 
+    //Log in btnn
     const handleLogin = async () => {
         try {
             const auth = getAuth();
@@ -37,6 +38,7 @@ const Login = () => {
     );
 };
 
+//styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,

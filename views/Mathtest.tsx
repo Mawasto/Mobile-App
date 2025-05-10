@@ -83,29 +83,30 @@ const MathTest = () => {
     if (finished) {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Test zakończony!</Text>
-                <Text>Poprawne odpowiedzi: {correctCount} / {TOTAL_QUESTIONS}</Text>
-                <Text>Całkowity czas: {Math.round(timeTaken / 1000)} sek</Text>
+                <Text style={styles.title}>Test finished!</Text>
+                <Text>Correct answers: {correctCount} / {TOTAL_QUESTIONS}</Text>
+                <Text>Time: {Math.round(timeTaken / 1000)} s</Text>
             </View>
         );
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Zadanie {currentIndex + 1} z {TOTAL_QUESTIONS}</Text>
+            <Text style={styles.title}>Question {currentIndex + 1} z {TOTAL_QUESTIONS}</Text>
             <Text style={styles.question}>{questions[currentIndex].question}</Text>
             <TextInput
                 style={styles.input}
                 keyboardType="numeric"
                 value={userAnswer}
                 onChangeText={setUserAnswer}
-                placeholder="Twoja odpowiedź"
+                placeholder="Your answer"
             />
-            <Button title="Zatwierdź" onPress={handleSubmit} />
+            <Button title="Commit" onPress={handleSubmit} />
         </View>
     );
 };
 
+//Styles
 const styles = StyleSheet.create({
     container: { padding: 20, alignItems: 'center', justifyContent: 'center', flex: 1 },
     title: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },

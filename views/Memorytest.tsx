@@ -22,33 +22,28 @@ const MemoryTest = () => {
     const [testFinished, setTestFinished] = useState(false);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    // Generate and show number when currentLength changes
+
     useEffect(() => {
         if (currentLength > MAX_LENGTH) {
-            // Test finished successfully at max length
             saveResult(MAX_LENGTH);
             setTestFinished(true);
             return;
         }
 
-        // Generate new number and show it
         const newNumber = generateNumber(currentLength);
         setGeneratedNumber(newNumber);
         setShowNumber(true);
         setUserInput('');
 
-        // Hide number after SHOW_DURATION_MS
         timeoutRef.current = setTimeout(() => {
             setShowNumber(false);
         }, SHOW_DURATION_MS);
 
-        // Cleanup timeout on unmount or length change
         return () => {
             if (timeoutRef.current) clearTimeout(timeoutRef.current);
         };
     }, [currentLength]);
 
-    // Save result to Firestore
     const saveResult = async (score: number) => {
         const auth = getAuth();
         const user = auth.currentUser;
@@ -73,13 +68,11 @@ const MemoryTest = () => {
         }
     };
 
-    // Handle user submitting input
+
     const handleSubmit = async () => {
         if (userInput === generatedNumber) {
-            // Correct, increase length and continue
             setCurrentLength((prev) => prev + 1);
         } else {
-            // Wrong, finish test and save score (length - 1)
             await saveResult(currentLength - 1);
             setTestFinished(true);
             Alert.alert('Incorrect', `Wrong number! Your score: ${currentLength - 1}`);
@@ -105,7 +98,7 @@ const MemoryTest = () => {
     return (
         <View style={styles.container}>
             {showNumber ? (
-                <Text style={styles.number}>{generatedNumber}</Text>
+                <Text style={styles.number} selectable={false} onLongPress={() => { }}>{generatedNumber}</Text>
             ) : (
                 <>
                     <TextInput
@@ -125,6 +118,8 @@ const MemoryTest = () => {
     );
 };
 
+
+//Styles
 const styles = StyleSheet.create({
     container: { flex: 1, padding: 20, justifyContent: 'center', alignItems: 'center' },
     number: { fontSize: 48, fontWeight: 'bold', marginBottom: 20, letterSpacing: 8 },

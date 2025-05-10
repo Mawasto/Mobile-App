@@ -20,6 +20,7 @@ const Home = () => {
         }
     }, []);
 
+    //Loguot buttn
     const handleLogout = async () => {
         try {
             await signOut(getAuth());
@@ -56,6 +57,7 @@ const Home = () => {
     );
 };
 
+//Styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,
