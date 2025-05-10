@@ -4,7 +4,6 @@ import { getAuth, signOut } from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types';
-import MathTest from './Math';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -42,7 +41,7 @@ const Home = () => {
                 <Text style={styles.buttonText}>Memory Test</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.greenButton} onPress={() => navigation.navigate('Math')}>
+            <TouchableOpacity style={styles.greenButton} onPress={() => navigation.navigate('Mathtest')}>
                 <Text style={styles.buttonText}>Math Test</Text>
             </TouchableOpacity>
 

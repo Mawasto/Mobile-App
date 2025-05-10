@@ -6,6 +6,8 @@ import { getFirestore, collection, getDocs, query, where, orderBy } from 'fireba
 const Results = () => {
     const [reactionTimes, setReactionTimes] = useState<number[]>([]);
     const [memoryScores, setMemoryScores] = useState<number[]>([]);
+    const [mathResults, setMathResults] = useState<{ correct: number; timeMs: number }[]>([]);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,6 +29,16 @@ const Results = () => {
                 const memorySnap = await getDocs(memoryQuery);
                 const scores = memorySnap.docs.map(doc => doc.data().score);
                 setMemoryScores(scores);
+
+                // Fetch math test results
+                const mathRef = collection(db, 'mathResults', user.uid, 'results');
+                const mathQuery = query(mathRef, orderBy('timestamp', 'desc'));
+                const mathSnap = await getDocs(mathQuery);
+                const math = mathSnap.docs.map(doc => ({
+                    correct: doc.data().correct,
+                    timeMs: doc.data().timeMs
+                }));
+                setMathResults(math);
             }
         };
 
@@ -51,6 +63,16 @@ const Results = () => {
                 ))
             ) : (
                 <Text>No memory test results found.</Text>
+            )}
+            <Text style={[styles.title, { marginTop: 20 }]}>Math Test History:</Text>
+            {mathResults.length > 0 ? (
+                mathResults.map((res, index) => (
+                    <Text key={`math-${index}`}>
+                        #{index + 1}: {res.correct} correct answers in {Math.round(res.timeMs / 1000)} seconds
+                    </Text>
+                ))
+            ) : (
+                <Text>No math test results found.</Text>
             )}
         </ScrollView>
     );

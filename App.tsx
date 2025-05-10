@@ -10,6 +10,7 @@ import Main from './views/Main';
 import Memorytest from './views/Memorytest';
 import Reactiontest from './views/Reactiontest';
 import Results from './views/Results';
+import MathTest from './views/Mathtest';
 
 
 import { initializeApp } from 'firebase/app';
@@ -42,6 +43,7 @@ const App = () => {
         <Stack.Screen name="Memorytest" component={Memorytest} />
         <Stack.Screen name="Reactiontest" component={Reactiontest} />
         <Stack.Screen name="Results" component={Results} />
+        <Stack.Screen name="Mathtest" component={MathTest} />
         {/* <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Settings" component={Settings} />
