@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
-const MAX_LENGTH = 15;
+const MAX_LENGTH = 20;
 const SHOW_DURATION_MS = 4000;
 
 const generateNumber = (length: number) => {
